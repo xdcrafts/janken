@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class DefaultGameStats<T extends Enum<T>> implements GameStats<T> {
 
-    private int numberOfRounds = 0;
+    private long numberOfRounds = 0;
     private final Map<Object, Integer> counters = new HashMap<>();
 
     /**

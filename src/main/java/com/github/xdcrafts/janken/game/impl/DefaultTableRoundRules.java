@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of round rules based on a table.
@@ -46,5 +47,15 @@ public class DefaultTableRoundRules<T extends Enum<T>> implements RoundRules<T> 
     @Override
     public Outcome compare(T first, T second) {
         return this.table.get(first).get(second);
+    }
+
+    @Override
+    public List<T> figuresOutcome(T figure, Outcome outcome) {
+        return this.table.get(figure)
+            .entrySet()
+            .stream()
+            .filter(e -> e.getValue() == outcome)
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
     }
 }

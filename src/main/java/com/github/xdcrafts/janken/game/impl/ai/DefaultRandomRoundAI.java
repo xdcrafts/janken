@@ -1,4 +1,4 @@
-package com.github.xdcrafts.janken.game.impl;
+package com.github.xdcrafts.janken.game.impl.ai;
 
 import com.github.xdcrafts.janken.game.RoundAI;
 

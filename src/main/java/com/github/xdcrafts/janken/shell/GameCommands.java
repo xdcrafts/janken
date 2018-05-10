@@ -27,6 +27,8 @@ public class GameCommands<T extends Enum<T>> {
 
     @Autowired
     private Game<T> game;
+    @Autowired
+    private GameStats<T> gameStats;
 
     /**
      * Command rendering list of figures as table.
@@ -49,7 +51,6 @@ public class GameCommands<T extends Enum<T>> {
      */
     @ShellMethod(value = "Display current game stats.")
     public Table stats() {
-        final GameStats<T> gameStats = this.game.gameStats();
         final TableModelBuilder tableModelBuilder = new TableModelBuilder<>()
             .addRow()
             .addValue("WIN %");
@@ -61,11 +62,11 @@ public class GameCommands<T extends Enum<T>> {
             .forEach(tableModelBuilder::addValue);
         tableModelBuilder
             .addRow()
-            .addValue(gameStats.percentOf(Outcome.WIN));
+            .addValue(this.gameStats.percentOf(Outcome.WIN));
         Arrays.stream(Outcome.values())
-            .forEach(o -> tableModelBuilder.addValue(gameStats.numberOf(o)));
+            .forEach(o -> tableModelBuilder.addValue(this.gameStats.numberOf(o)));
         this.game.figures().stream()
-            .map(gameStats::percentOf)
+            .map(this.gameStats::percentOf)
             .forEach(tableModelBuilder::addValue);
         return new TableBuilder(tableModelBuilder.build())
             .addFullBorder(BorderStyle.oldschool)

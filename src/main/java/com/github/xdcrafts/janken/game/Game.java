@@ -12,11 +12,6 @@ import java.util.List;
 public interface Game<T extends Enum<T>> extends Round<T> {
 
     /**
-     * Returns game stats.
-     */
-    GameStats<T> gameStats();
-
-    /**
      * Returns figures enum class.
      */
     Class<T> figuresEnum();
